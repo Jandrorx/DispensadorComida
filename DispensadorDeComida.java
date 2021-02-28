@@ -8,6 +8,7 @@ package dispensadordecomida;
 
 import java.awt.*;
 import java.awt.event.*;
+//import java.util.Scanner;
 /**
  *
  * @author Jandro
@@ -17,11 +18,24 @@ import java.awt.event.*;
 public class DispensadorDeComida extends Frame {
     
     //Set items in the machine
-    int chocolate = 2;
-    int papas = 2;
-    int cola = 2;
-    int cerveza = 2;
-        
+    int uChocolate = 2;
+    int uPapas = 2;
+    int uCola = 2;
+    int uCerveza = 2;
+    
+    //Value of the items
+    int pChocolate = 2;
+    int pPapas = 2;
+    int pCola = 5;
+    int pCerveza = 5;
+    
+    //Set money of the machine
+    int mCinco = 2;
+    int mDos = 5;
+    int mRest = 0;
+    
+    int dInsert = 0;
+    
     //Set width and height of the frame
     private static final int WIDTH = 435;
     private static final int HEIGHT = 500;
@@ -37,7 +51,7 @@ public class DispensadorDeComida extends Frame {
         * Create buttons
         */
         
-        //Chocolate
+        //ChouColate
         Button bChocolate=new Button("Chocolate"); 
         bChocolate.setBounds(30,100,80,30);   
         
@@ -65,31 +79,73 @@ public class DispensadorDeComida extends Frame {
         * Create labels for the goods
         */
         
-        //Chocolate
+        //ChouColate
         Label lChocolate;
         lChocolate= new Label("Chocolates quedan:");
-        lChocolate.setBounds(30,190,120,30);
+        lChocolate.setBounds(30,190,120,20);
+        lChocolate.setBackground(Color.GRAY);
         
         //Papas
         Label lPapas;
         lPapas= new Label("Papas quedan:");
-        lPapas.setBounds(230,190,120,30);
+        lPapas.setBounds(230,190,120,20);
+        lPapas.setBackground(Color.GRAY);
         
         //Cola
         Label lCola;
         lCola= new Label("Colas quedan:");
-        lCola.setBounds(30,270,120,30);
+        lCola.setBounds(30,235,120,20);
+        lCola.setBackground(Color.GRAY);
         
         //Cerveza
         Label lCerveza;
         lCerveza= new Label("Cervezas quedan:");
-        lCerveza.setBounds(230,270,120,30);
+        lCerveza.setBounds(230,235,120,20);
+        lCerveza.setBackground(Color.GRAY);
+        
+        //Dinero en maquina
+        Label lDineroM;
+        lDineroM= new Label("Dinero maquina");
+        lDineroM.setBounds(30,280,120,20);
+        lDineroM.setBackground(Color.GRAY);
+        
+        //Money introduced by the user
+        TextField tDineroUser;  
+        tDineroUser=new TextField("");  
+        tDineroUser.setBounds(30,330,50,20);
+        
+        //Insert coin button + Label 
+        Button bInsert=new Button("Insert"); 
+        bInsert.setBounds(90,330,80,30);   
+                
+        Label lDineroInsert;
+        lDineroInsert= new Label("0");
+        lDineroInsert.setBounds(180,330,30,20);
+        lDineroInsert.setBackground(Color.GRAY);
+        
+        Label lDineroRest;
+        lDineroRest= new Label(String.valueOf(mRest));
+        lDineroRest.setBounds(240,330,30,20);
+        lDineroRest.setBackground(Color.GRAY);
+        
+        Label lLabelDineroRest;
+        lLabelDineroRest= new Label("Resto");
+        lLabelDineroRest.setBounds(275,330,40,20);
+        lLabelDineroRest.setBackground(Color.GRAY);
+        add(lLabelDineroRest);
+        
+        Button bPickRest=new Button("Pick!"); 
+        bPickRest.setBounds(320,330,80,30); 
+        add(bPickRest);
+        //Scanner myObj = new Scanner(System.in);
+        //String money = myObj.nextLine();
+        //tDineroUser.setText(money);
         
         /*
         * Create text fields for the counters
         */
         
-        Label tDisplay, tChocolate, tPapas, tCola, tCerveza, tInfo, tBandeja; 
+        Label tDisplay, tChocolate, tPapas, tCola, tCerveza, tCinco, tDos, tInfo, tBandeja; 
         
         //Display        
         tDisplay=new Label("");
@@ -98,94 +154,138 @@ public class DispensadorDeComida extends Frame {
         tDisplay.setForeground(Color.white);
         
         //Chocolate
-        tChocolate=new Label(String.valueOf(chocolate));
-        tChocolate.setBounds(30,230,30,30);
+        tChocolate=new Label(String.valueOf(uChocolate));
+        tChocolate.setBounds(30,210,30,20);
+        tChocolate.setBackground(Color.GRAY);
         
         //Papas
-        tPapas=new Label(String.valueOf(papas));
-        tPapas.setBounds(230,230,30,30);
+        tPapas=new Label(String.valueOf(uPapas));
+        tPapas.setBounds(230,210,30,20);
+        tPapas.setBackground(Color.GRAY);
         
         //Cola
-        tCola=new Label(String.valueOf(cola));
-        tCola.setBounds(30,310,30,30);
+        tCola=new Label(String.valueOf(uCola));
+        tCola.setBounds(30,255,30,20);
+        tCola.setBackground(Color.GRAY);
         
         //Cerveza
-        tCerveza=new Label(String.valueOf(cerveza));
-        tCerveza.setBounds(230,310,30,30);
+        tCerveza=new Label(String.valueOf(uCerveza));
+        tCerveza.setBounds(230,255,30,20);
+        tCerveza.setBackground(Color.GRAY);
+        
+        //Coins 5
+        tCinco=new Label(String.valueOf(mCinco));
+        tCinco.setBounds(30,300,20,20);
+        tCinco.setBackground(Color.GRAY);
+        
+        //Coins 2
+        tDos=new Label(String.valueOf(mDos));
+        tDos.setBounds(65,300,20,20);
+        tDos.setBackground(Color.GRAY);
         
         //Label bandeja        
         tBandeja=new Label("Bandeja de salida.");
         tBandeja.setBounds(30,410,360,30);
+        tBandeja.setBackground(Color.GRAY);
         
         //Info bandeja
         tInfo=new Label();
         tInfo.setBounds(30,450,360,30);
+        tInfo.setBackground(Color.GRAY);
                 
         /*
         * Add functions to the buttons
         */
         
-        //Chocolate
+        //Money introduced
+        bInsert.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){                
+                if (tDineroUser.getText().isEmpty()) {
+                    lDineroInsert.setText(String.valueOf(dInsert));
+                }
+                else if (dInsert > 0) { 
+                    String s1=tDineroUser.getText();
+                    int dInsert2 = Integer.parseInt(s1);
+                    dInsert = dInsert + dInsert2; 
+                    tDineroUser.setText("");
+                }
+                else {
+                    String s2=tDineroUser.getText();  
+                    //Scanner tDineroUser = new Scanner(System.in);
+                    //String money = tDineroUser.nextLine();
+                    lDineroInsert.setText(s2); 
+                    tDineroUser.setText("");
+                    dInsert = Integer.parseInt(s2);
+                }              
+            }  
+        }); 
+        
+        //ChouColate
         bChocolate.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){                
-                if (chocolate == 0) {
-                    tDisplay.setText("El chocolate se acabó. Seleccione otro producto");
-                    chocolate = 0;
+                if (uChocolate == 0) {
+                    tDisplay.setText("El Chocolate se acabó. Seleccione otro producto");
+                    //uChouColate = 0;
                 }
-                else { 
-                    chocolate --;
+                else if (dInsert == 0 || dInsert < pChocolate) { 
+                    tDisplay.setText("Dinero insuficiente.");
+                }
+                else {
+                    dInsert = dInsert - pChocolate;
+                    uChocolate --;
                     tDisplay.setText("Chocolate seleccionado.");
                     tInfo.setText("Chocolate");                    
                 }     
-                tChocolate.setText(String.valueOf(chocolate));            
+                tChocolate.setText(String.valueOf(uChocolate)); 
+                lDineroInsert.setText(String.valueOf(dInsert));
             }  
         }); 
         
         //Papas
         bPapas.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){ 
-                if (papas == 0) {
-                    tDisplay.setText("Las papas se acabaron. Seleccione otro producto");
-                    papas = 0;
+                if (uPapas == 0) {
+                    tDisplay.setText("Las Papas se acabaron. Seleccione otro producto");
+                    //uPapas = 0;
                 }
                 else { 
-                    papas --;
+                    uPapas --;
                     tDisplay.setText("Papas seleccionado.");  
                     tInfo.setText("Papas");                  
                 }
-                tPapas.setText(String.valueOf(papas));
+                tPapas.setText(String.valueOf(uPapas));
             }  
         });
         
         //Cola
         bCola.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){ 
-                if (cola == 0) {
-                    tDisplay.setText("La cola se acabó. Seleccione otro producto");
-                    cola = 0;
+                if (uCola == 0) {
+                    tDisplay.setText("La Cola se acabó. Seleccione otro producto");
+                    //uCola = 0;
                 }
                 else {
-                    cola --; 
+                    uCola --; 
                     tDisplay.setText("Cola seleccionado."); 
                     tInfo.setText("Cola");                  
                 }
-                tCola.setText(String.valueOf(cola));
+                tCola.setText(String.valueOf(uCola));
             }  
         }); 
         
         //Cerveza
         bCerveza.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){
-                if (cerveza == 0) {
-                    tDisplay.setText("La cerveza se acabó... y el mundo también. Seleccione otra cosa.");
-                    cerveza = 0;
+                if (uCerveza == 0) {
+                    tDisplay.setText("La Cerveza se acabó... y el mundo también. Seleccione otra cosa.");
+                    //uCerveza = 0;
                 }
                 else {
-                    cerveza --;  
+                    uCerveza --;  
                     tDisplay.setText("Cerveza seleccionado."); 
                     tInfo.setText("Cerveza");                  
                 }
-                tCerveza.setText(String.valueOf(cerveza));
+                tCerveza.setText(String.valueOf(uCerveza));
             }  
         }); 
         
@@ -196,20 +296,28 @@ public class DispensadorDeComida extends Frame {
                 tDisplay.setText("");
             }  
         }); 
+                
+        //Pick up rest
+        bPickRest.addActionListener(new ActionListener(){  
+            public void actionPerformed(ActionEvent e){
+                mRest = 0;
+                lDineroRest.setText(String.valueOf(mRest));
+            }  
+        }); 
         
         //Reset
         bReset.addActionListener(new ActionListener(){  
             public void actionPerformed(ActionEvent e){
                 tInfo.setText("");
                 tDisplay.setText("");
-                chocolate = 2;
-                papas = 2;
-                cola = 2;
-                cerveza = 2;
-                tChocolate.setText(String.valueOf(chocolate));
-                tPapas.setText(String.valueOf(papas));
-                tCola.setText(String.valueOf(cola));
-                tCerveza.setText(String.valueOf(cerveza));
+                uChocolate = 2;
+                uPapas = 2;
+                uCola = 2;
+                uCerveza = 2;
+                tChocolate.setText(String.valueOf(uChocolate));
+                tPapas.setText(String.valueOf(uPapas));
+                tCola.setText(String.valueOf(uCola));
+                tCerveza.setText(String.valueOf(uCerveza));
             }  
         }); 
         
@@ -233,8 +341,15 @@ public class DispensadorDeComida extends Frame {
         add(tPapas);
         add(tCola);
         add(tCerveza);
+        add(lDineroM);
+        add(tCinco);
+        add(tDos);
         add(tBandeja);
         add(tInfo);
+        add(tDineroUser);
+        add(bInsert);
+        add(lDineroInsert);
+        add(lDineroRest);
         
         /*
         * Frame properties
