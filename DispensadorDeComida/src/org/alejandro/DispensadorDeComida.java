@@ -15,7 +15,7 @@ import java.awt.event.*;
  * @author Jandro
  */
 
-
+//test
 public class DispensadorDeComida {
 
     //Set items in the machine
