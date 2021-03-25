@@ -19,13 +19,11 @@ import java.awt.event.*;
 public class DispensadorDeComida {
 
     //Set items in the machine
-//    int uChocolate = 2;
     int PAPAS_INICIAL = 2;
     int COLA_INICIAL = 2;
     int CERVEZA_INICIAL = 2;
     
     //Value of the items
-//    int pChocolate = 2;
     int PRECIO_PAPAS = 2;
     int PRECIO_COLA = 5;
     int PRECIO_CERVEZA = 5;
@@ -36,18 +34,11 @@ public class DispensadorDeComida {
     
     int DINERO_INSERTADO = 0;
 
-    public static class chocolate {
-
-        int CHOCOLATE_INICIAL = 2;
-        int PRECIO_CHOCOLATE = 2;
-        int ACTUAL_CHOCOLATE = CHOCOLATE_INICIAL;
-
-    }
 
 
     public DispensadorDeComida(){
 
-        chocolate chocolate = new chocolate();
+        Chocolate chocolate = new Chocolate();
         FWindow fWindow=new FWindow(chocolate.ACTUAL_CHOCOLATE, PAPAS_INICIAL, COLA_INICIAL, CERVEZA_INICIAL, MONEDAS_CINCO, MONEDAS_DOS);
         /*
         * Add functions to the buttons
@@ -55,7 +46,7 @@ public class DispensadorDeComida {
 
         //Money introduced
         fWindow.BOTON_INSERT_DINERO.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){                
+            public void actionPerformed(ActionEvent e){
                 if (fWindow.DINERO_USUARIO.getText().isEmpty()) {
                     fWindow.LABEL_DINERO_INSERTADO.setText(String.valueOf(DINERO_INSERTADO));
                 }
