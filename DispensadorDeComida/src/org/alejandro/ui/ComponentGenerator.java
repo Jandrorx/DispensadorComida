@@ -11,7 +11,7 @@ public class ComponentGenerator implements Serializable {
         //Generic label
         Label label = new Label(text);
         label.setBounds(posH, posV, ancho, alto);
-        label.setBackground(Color.GRAY);
+        //label.setBackground(Color.GRAY);
         return label;
     }
 
