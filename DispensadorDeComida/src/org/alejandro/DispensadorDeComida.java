@@ -47,21 +47,20 @@ public class DispensadorDeComida {
         //Money introduced
         fWindow.BOTON_INSERT_DINERO.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
+                String dInsert = fWindow.DINERO_USUARIO.getText();
                 if (fWindow.DINERO_USUARIO.getText().isEmpty()) {
-                    fWindow.LABEL_DINERO_INSERTADO.setText(String.valueOf(DINERO_INSERTADO));
-                }
-                else if (DINERO_INSERTADO > 0) {
-                    String s1=fWindow.DINERO_USUARIO.getText();
-                    int dInsert2 = Integer.parseInt(s1);
-                    DINERO_INSERTADO = DINERO_INSERTADO + dInsert2;
-                    fWindow.DINERO_USUARIO.setText("");
+//                    fWindow.LABEL_DINERO_INSERTADO.setText(String.valueOf(DINERO_INSERTADO));
+                    fWindow.DISPLAY.setText("Inserta dinero.");
+
                 }
                 else {
-                    String s2=fWindow.DINERO_USUARIO.getText();
-                    fWindow.LABEL_DINERO_INSERTADO.setText(s2);
+                    fWindow.DISPLAY.setText("");
+                    int DINERO_INSERTADO_USUARIO = Integer.parseInt(dInsert);
+                    DINERO_INSERTADO = DINERO_INSERTADO + DINERO_INSERTADO_USUARIO;
                     fWindow.DINERO_USUARIO.setText("");
-                    DINERO_INSERTADO = Integer.parseInt(s2);
-                }              
+                    String s1 = String.valueOf(DINERO_INSERTADO);
+                    fWindow.LABEL_DINERO_INSERTADO.setText(s1);
+                }
             }  
         }); 
         
