@@ -19,27 +19,28 @@ import java.awt.event.*;
 public class DispensadorDeComida {
 
     //Set items in the machine
-    int PAPAS_INICIAL = 2;
-    int COLA_INICIAL = 2;
-    int CERVEZA_INICIAL = 2;
+    int papasInicial = 2;
+    int colaInicial = 2;
+    int cervezaInicial = 2;
     
     //Value of the items
-    int PRECIO_PAPAS = 2;
-    int PRECIO_COLA = 5;
-    int PRECIO_CERVEZA = 5;
+    int precioPapas = 2;
+    int precioCola = 5;
+    int precioCerveza = 5;
     
     //Set money of the machine
-    int MONEDAS_CINCO = 5;
-    int MONEDAS_DOS = 10;
+    int monedasCinco = 5;
+    int monedasDos = 10;
     
-    int DINERO_INSERTADO = 0;
+    int dineroInsertado = 0;
 
 
 
     public DispensadorDeComida(){
 
         Chocolate chocolate = new Chocolate();
-        FWindow fWindow=new FWindow(chocolate.ACTUAL_CHOCOLATE, PAPAS_INICIAL, COLA_INICIAL, CERVEZA_INICIAL, MONEDAS_CINCO, MONEDAS_DOS);
+        Papas papas = new Papas();
+        FWindow fWindow=new FWindow(chocolate.actualChocolate, papasInicial, colaInicial, cervezaInicial, monedasCinco, monedasDos);
         /*
         * Add functions to the buttons
         */
@@ -56,9 +57,9 @@ public class DispensadorDeComida {
                 else {
                     fWindow.DISPLAY.setText("");
                     int DINERO_INSERTADO_USUARIO = Integer.parseInt(dInsert);
-                    DINERO_INSERTADO = DINERO_INSERTADO + DINERO_INSERTADO_USUARIO;
+                    dineroInsertado = dineroInsertado + DINERO_INSERTADO_USUARIO;
                     fWindow.DINERO_USUARIO.setText("");
-                    String s1 = String.valueOf(DINERO_INSERTADO);
+                    String s1 = String.valueOf(dineroInsertado);
                     fWindow.LABEL_DINERO_INSERTADO.setText(s1);
                 }
             }  
@@ -67,68 +68,52 @@ public class DispensadorDeComida {
         //Chocolate
         fWindow.BOTON_CHOCOLATE.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if (chocolate.ACTUAL_CHOCOLATE == 0) {
-                    fWindow.DISPLAY.setText("El Chocolate se acabó. Seleccione otro producto");
-                }
-                else if (DINERO_INSERTADO == 0 || DINERO_INSERTADO < chocolate.PRECIO_CHOCOLATE) {
-                    fWindow.DISPLAY.setText("Dinero insuficiente.");
-                }
-                else {
-                    MONEDAS_DOS = MONEDAS_DOS + 2;
-                    DINERO_INSERTADO = DINERO_INSERTADO - chocolate.PRECIO_CHOCOLATE;
-                    chocolate.ACTUAL_CHOCOLATE --;
-                    fWindow.DISPLAY.setText("Chocolate seleccionado.");
-                    fWindow.LABEL_INFO.setText("Chocolate");
-
-                }
-                fWindow.COUNTER_CHOCOLATE.setText(String.valueOf(chocolate.ACTUAL_CHOCOLATE));
-                fWindow.LABEL_DINERO_INSERTADO.setText(String.valueOf(DINERO_INSERTADO));
-                fWindow.COUNTER_MONEDAS_DOS.setText(String.valueOf(MONEDAS_DOS));
+                extracted(chocolate, fWindow);
             }
         });
         
         //Papas
         fWindow.BOTON_PAPAS.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if (PAPAS_INICIAL == 0) {
+                if (papasInicial == 0) {
                     fWindow.DISPLAY.setText("Las Papas se acabaron. Seleccione otro producto");
                 }
                 else {
-                    PAPAS_INICIAL--;
+                    papasInicial--;
                     fWindow.DISPLAY.setText("Papas seleccionado.");
                     fWindow.LABEL_INFO.setText("Papas");
                 }
-                fWindow.COUNTER_COLA.setText(String.valueOf(PAPAS_INICIAL));
+                fWindow.COUNTER_COLA.setText(String.valueOf(papasInicial));
             }
         });
 
         //Cola
         fWindow.BOTON_COLA.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){ 
-                if (COLA_INICIAL == 0) {
+                if (colaInicial == 0) {
                     fWindow.DISPLAY.setText("La Cola se acabó. Seleccione otro producto");
                 }
                 else {
-                    COLA_INICIAL--;
+                    colaInicial--;
                     fWindow.DISPLAY.setText("Cola seleccionado.");
                     fWindow.LABEL_INFO.setText("Cola");
                 }
-                fWindow.COUNTER_COLA.setText(String.valueOf(COLA_INICIAL));
+                fWindow.COUNTER_COLA.setText(String.valueOf(colaInicial));
             }  
         }); 
         
         //Cerveza
         fWindow.BOTON_CERVEZA.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if (CERVEZA_INICIAL == 0) {
+                if (cervezaInicial == 0) {
                     fWindow.DISPLAY.setText("La Cerveza se acabó... y el mundo también. Seleccione otra cosa.");
                 }
                 else {
-                    CERVEZA_INICIAL--;
+                    cervezaInicial--;
                     fWindow.DISPLAY.setText("Cerveza seleccionado.");
                     fWindow.LABEL_INFO.setText("Cerveza");
                 }
-                fWindow.COUNTER_CERVEZA.setText(String.valueOf(CERVEZA_INICIAL));
+                fWindow.COUNTER_CERVEZA.setText(String.valueOf(cervezaInicial));
             }  
         }); 
         
@@ -143,8 +128,8 @@ public class DispensadorDeComida {
         //Pick up rest
         fWindow.BOTON_PICK_RESTO_DINERO.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                DINERO_INSERTADO = 0;
-                fWindow.LABEL_DINERO_INSERTADO.setText(String.valueOf(DINERO_INSERTADO));
+                dineroInsertado = 0;
+                fWindow.LABEL_DINERO_INSERTADO.setText(String.valueOf(dineroInsertado));
             }  
         }); 
         
@@ -153,20 +138,38 @@ public class DispensadorDeComida {
             public void actionPerformed(ActionEvent e){
                 fWindow.LABEL_INFO.setText("");
                 fWindow.DISPLAY.setText("");
-                chocolate.ACTUAL_CHOCOLATE = chocolate.CHOCOLATE_INICIAL;
-                PAPAS_INICIAL = 2;
-                COLA_INICIAL = 2;
-                CERVEZA_INICIAL = 2;
-                fWindow.COUNTER_CHOCOLATE.setText(String.valueOf(chocolate.ACTUAL_CHOCOLATE));
-                fWindow.COUNTER_PAPAS.setText(String.valueOf(PAPAS_INICIAL));
-                fWindow.COUNTER_COLA.setText(String.valueOf(COLA_INICIAL));
-                fWindow.COUNTER_CERVEZA.setText(String.valueOf(CERVEZA_INICIAL));
+                chocolate.actualChocolate = chocolate.chocolateInicial;
+                papasInicial = 2;
+                colaInicial = 2;
+                cervezaInicial = 2;
+                fWindow.COUNTER_CHOCOLATE.setText(String.valueOf(chocolate.actualChocolate));
+                fWindow.COUNTER_PAPAS.setText(String.valueOf(papasInicial));
+                fWindow.COUNTER_COLA.setText(String.valueOf(colaInicial));
+                fWindow.COUNTER_CERVEZA.setText(String.valueOf(cervezaInicial));
             }  
         }); 
 
     }
 
+    private void extracted(Chocolate chocolate, FWindow fWindow) {
+        if (chocolate.actualChocolate == 0) {
+            fWindow.DISPLAY.setText("El Chocolate se acabó. Seleccione otro producto");
+        }
+        else if (dineroInsertado == 0 || dineroInsertado < chocolate.precioChocolate) {
+            fWindow.DISPLAY.setText("Dinero insuficiente.");
+        }
+        else {
+            monedasDos = monedasDos + 2;
+            dineroInsertado = dineroInsertado - chocolate.precioChocolate;
+            chocolate.actualChocolate--;
+            fWindow.DISPLAY.setText("Chocolate seleccionado.");
+            fWindow.LABEL_INFO.setText("Chocolate");
 
+        }
+        fWindow.COUNTER_CHOCOLATE.setText(String.valueOf(chocolate.actualChocolate));
+        fWindow.LABEL_DINERO_INSERTADO.setText(String.valueOf(dineroInsertado));
+        fWindow.COUNTER_MONEDAS_DOS.setText(String.valueOf(monedasDos));
+    }
 
 
     public static void main(String[] args) {
